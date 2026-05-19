@@ -1,0 +1,6 @@
+{
+  "name": "Ethiopian 10th Grade Quiz Dev Simulator",
+  "description": "An interactive Android emulator showing a Jetpack Compose & Room DB quiz app for 10th-grade Ethiopian students (Physics, Chemistry, Biology) with real-time Kotlin code inspection, download, and guide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

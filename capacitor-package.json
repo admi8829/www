@@ -1,0 +1,20 @@
+{
+  "name": "smartx-capacitor-android",
+  "version": "1.0.0",
+  "description": "SmartX - 10th-grade Ethiopian Curriculum Quiz Native App Wrapper",
+  "main": "index.js",
+  "scripts": {
+    "build": "vite build",
+    "cap:sync": "cap sync",
+    "cap:open": "cap open android",
+    "android:build": "npm run build && npx cap sync && cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

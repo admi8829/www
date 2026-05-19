@@ -1,0 +1,60 @@
+name: Build Android APK (Capacitor)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Compile Android App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+          cache: 'gradle'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Web Assets
+        run: |
+          npm run build --if-present
+          # Ensure target directory exists for Capacitor
+          mkdir -p www
+          # Copy outputs if they are in dist/ to the webDir (www)
+          if [ -d "dist" ]; then cp -r dist/* www/; fi
+
+      - name: Capacitor Sync
+        run: |
+          npx cap init SmartX com.habtamu.smartx --web-dir=www || true
+          npx cap add android || true
+          npx cap sync android
+
+      - name: Build Android Debug APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload Debug APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk
