@@ -10,21 +10,21 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v4 # ወደ v4 አድሷል
+      uses: actions/checkout@v4
 
     - name: Set up Node.js
-      uses: actions/setup-node@v4 # ወደ v4 አድሷል
+      uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 20 # ከ Vite 6 ጋር እንዲስማማ ወደ Node 20 ከፍ ብሏል
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v4 # ወደ v4 አድሷል
+      uses: actions/setup-java@v4
       with:
         distribution: 'zulu'
         java-version: '17'
 
     - name: Install Dependencies
-      run: npm install
+      run: npm install --legacy-peer-deps # ጥቅሎችን ያለምንም ስህተት እንዲጭን ያደርጋል
 
     - name: Build Vite Project
       run: npm run build
@@ -40,7 +40,7 @@ jobs:
         ./gradlew assembleDebug
 
     - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4 # ይህ ነው ዋናው ስህተቱን የሚያስተካክለው!
+      uses: actions/upload-artifact@v4
       with:
         name: smartx-debug-apk
         path: android/app/build/outputs/apk/debug/app-debug.apk
