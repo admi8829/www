@@ -31,7 +31,7 @@ jobs:
 
     - name: Add Android Platform
       run: |
-        npx cap add android
+        npx cap add android || true
         npx cap sync
 
     - name: Build APK with Gradle
