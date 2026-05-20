@@ -1,6 +1,6 @@
 {
   "appId": "com.habtamu.smartx",
   "appName": "SmartX",
-  "webDir": "www",
+  "webDir": "dist",
   "bundledWebRuntime": false
 }

@@ -33,17 +33,12 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Web Assets
-        run: |
-          npm run build --if-present
-          # Ensure target directory exists for Capacitor
-          mkdir -p www
-          # Copy outputs if they are in dist/ to the webDir (www)
-          if [ -d "dist" ]; then cp -r dist/* www/; fi
+      - name: Build Web Assets (Vite)
+        run: npm run build
 
-      - name: Capacitor Sync
+      - name: Capacitor Integrate and Sync
         run: |
-          npx cap init SmartX com.habtamu.smartx --web-dir=www || true
+          npx cap init SmartX com.habtamu.smartx --web-dir=dist || true
           npx cap add android || true
           npx cap sync android
 
